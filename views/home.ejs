@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashtoon Comic Creator</title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+
+      body {
+        background-color: #f2f2f2;
+        font-family: sans-serif;
+      }
+
+      button {
+        border: none;
+      }
+
+      .top {
+        height: 100vh;
+        background-image: url("https://media.istockphoto.com/photos/black-wooden-desk-blackboard-periodic-table-crack-cocaine-texture-picture-id991775902?k=20&m=991775902&s=170667a&w=0&h=yEGyO2MRyzaNynO4GLWfEx4oxOqbYHaj0i8s5ojYGDs=");
+      }
+
+      .comicgrid {
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        flex-direction: column;
+      }
+
+      .nav {
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 15px 2px 2px white;
+        border-bottom: 3px solid black;
+        background-color: rgba(0,0,0,0.7);
+        padding: 10px;
+        height: 50px;
+      }
+
+      .imgContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-height: 250px; 
+        max-width: 250px; 
+        border: 2px solid white;
+      }
+
+      .imgContainer img {
+        height: auto;
+        width: auto;
+      }
+      .intro {
+          display:  flex;
+          flex-direction: column;
+          height: 100%;
+          align-items: center;
+          justify-content: center;
+          background-color: rgba(0,0,0,0.7);
+      }
+
+      .head {
+        font-size: 2.2rem;
+        color: #fff;
+        font-weight: 600;
+        font-family: cursive;
+        margin-left: 15px;
+      }
+
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .profile {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.5rem;
+        margin-left: 30px;
+      }
+
+      .profile:hover {
+        color: #7a7893;
+      }
+
+      .blogs {
+        display: grid;
+        grid-template-columns: repeat(5,auto);
+        grid-template-rows: repeat(2,auto);
+        align-content: start;
+        justify-content: center;
+        flex-direction: column;
+        padding: 10px 0px 20px;
+        margin: 0px 25px;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media screen and (max-width: 800px) {
+        .plus {
+          right: 5px;
+        }
+
+        .head {
+          font-size: 1rem;
+          margin-left: 5px;
+        }
+
+        .comicgrid {
+          display: block;
+          position: fixed;
+          overflow: scroll;
+          height: 100%;
+          width: 100%;
+          margin: auto;
+        }
+
+        .profile {
+          font-size: 1rem;
+          margin-right: 5px !important;
+          margin-left: 0px !important;
+        }
+
+         #profile {
+             display: none;
+         }
+
+         .intro {
+             text-align: center;
+         }
+        .blogs {
+          grid-template-columns: auto;
+          grid-template-rows: repeat(10,auto);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="top">
+    <nav class="nav" id='nav'>
+      <h1 class="head">Dashtoon Comic Creator</h1>
+      <div class="dropdown" style="margin-right: 15px">
+        <a class="profile" id="profile" href="/login">Create Comic</a>
+      </div>
+    </nav>
+    <div class="comicgrid">
+    <div class="blogs">
+      <% for(var i =0; i <10; i++){ %>
+      <div id="imageContainer<%=i%>" class="imgContainer"><p style="color: white; padding: 5px;">Loading...</p></div>
+     <%}%>
+    </div>
+    </div>
+  </div>
+  </section>
+  
+  
+    <script>
+      async function query(data) {
+        const response = await fetch(
+          "https://xdwvg9no7pefghrn.us-east-1.aws.endpoints.huggingface.cloud",
+          {
+            headers: {
+              "Accept": "image/png",
+              "Authorization": "Bearer VknySbLLTUjbxXAXCjyfaFIPwUTCeRXbFSOjwRiCxsxFyhbnGjSFalPKrpvvDAaPVzWEevPljilLVDBiTzfIbWFdxOkYJxnOPoHhkkVGzAknaOulWggusSFewzpqsNWM",
+              "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify(data),
+          }
+        );
+        const result = await response.blob();
+        return result;
+      }
+  for(let i=0;i<10;i++) {
+        const inputText = "Comic";
+        const createComic = async () => {
+        try {
+          const imageBlob = await query({ "inputs": inputText });
+          console.log(imageBlob);
+  
+          // Display the image to the user
+          const imageUrl = URL.createObjectURL(imageBlob);
+          const imageElement = document.createElement('img');
+          imageElement.src = imageUrl;
+  
+          const imageContainer = document.getElementById(`imageContainer${i}`);
+          imageContainer.innerHTML = ''; // Clear previous content
+          imageContainer.appendChild(imageElement);
+        } catch (error) {
+          console.error('Error:', error);
+        }}
+        createComic();
+      }
+    </script>
+  </body>
+</html>
