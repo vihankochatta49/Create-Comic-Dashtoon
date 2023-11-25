@@ -1,8 +1,8 @@
 # _How to start_
 
-git clone [repo link]
-npm install
-nodemon start index.js
+- git clone [repo link]
+- npm install
+- nodemon start index.js
 
 
 **_About web app_**:
