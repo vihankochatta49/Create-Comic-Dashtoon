@@ -4,6 +4,8 @@
 - npm install
 - nodemon start index.js
 
+**_Run on localhost 3000 otherwise the google login won't work_**
+
 
 **_About web app_**:
 
