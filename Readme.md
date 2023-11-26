@@ -1,3 +1,9 @@
+Website link - https://comic-dashtoon.onrender.com/
+
+Sign in with Google will not work on hosted website because it callback on localhost:3000,
+login by creating id-password
+
+**For running Code on localhost**
 # _How to start_
 
 - git clone [repo link]
