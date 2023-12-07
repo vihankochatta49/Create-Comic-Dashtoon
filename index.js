@@ -26,7 +26,7 @@ app.use(methodOverride("_method"));
 
 // Connecting with database
 mongoose
-  .connect("mongodb+srv://vihankochatta:Vihank%40123@vihan.c7ql4ep.mongodb.net/?retryWrites=true&w=majority"|| "mongodb://localhost:27017/blogs")
+  .connect("mongodb://localhost:27017/blogs")
   .then(() => console.log("Connection successful..."))
   .catch((err) => console.log(err));
 
